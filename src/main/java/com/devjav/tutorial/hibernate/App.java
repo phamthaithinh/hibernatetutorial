@@ -11,6 +11,7 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.devjav.tutorial.hibernate.entity.LoginHistory;
 import com.devjav.tutorial.hibernate.entity.User;
 import com.devjav.tutorial.hibernate.util.HibernateUtil;
 
@@ -33,8 +34,13 @@ public class App {
 			user.setCrtDate(new Date());
 			user.setUsername("thinhpt");
 			user.setPassword("123456");
+			LoginHistory history= new LoginHistory();
+			history.setIp("127.0.0.1");
+			history.setUser(user);
+			history.setStatus("success");
+			history.setLoginDate(new Date());
 			txn = session.beginTransaction();
-			session.save(user);
+			session.persist(history);
 			txn.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
