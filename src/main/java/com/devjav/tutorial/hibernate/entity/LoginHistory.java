@@ -16,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -53,6 +55,7 @@ public class LoginHistory {
 	}
 
 	@Column(name = "login_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getLoginDate() {
 		return loginDate;
 	}
