@@ -8,12 +8,16 @@ package com.devjav.tutorial.hibernate.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * User persistence entity
@@ -21,7 +25,7 @@ import javax.persistence.Id;
  * @author Pham Thai Thinh
  * 
  */
-@Entity(name="users")
+@Entity(name = "users")
 public class User implements Serializable {
 	/**
 	 * 
@@ -31,6 +35,7 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private Date crtDate;
+	private Set<LoginHistory> histories;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -65,6 +70,18 @@ public class User implements Serializable {
 
 	public void setCrtDate(Date crtDate) {
 		this.crtDate = crtDate;
+	}
+
+	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval=true)
+	public Set<LoginHistory> getHistories() {
+		if (histories == null) {
+			histories = new HashSet<LoginHistory>();
+		}
+		return histories;
+	}
+
+	public void setHistories(Set<LoginHistory> histories) {
+		this.histories = histories;
 	}
 
 }

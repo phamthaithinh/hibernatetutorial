@@ -34,24 +34,25 @@ public class App {
 			user.setCrtDate(new Date());
 			user.setUsername("thinhpt");
 			user.setPassword("123456");
-			LoginHistory history= new LoginHistory();
+			LoginHistory history = new LoginHistory();
 			history.setIp("127.0.0.1");
-			history.setUser(user);
 			history.setStatus("success");
 			history.setLoginDate(new Date());
+			history.setUser(user);
+			user.getHistories().add(history);
 			txn = session.beginTransaction();
-			session.persist(history);
+			session.persist(user);
 			txn.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			if (txn != null) {
 				txn.rollback();
-				txn=null;
+				txn = null;
 			}
 		} finally {
 			if (session != null) {
 				session.close();
-				session=null;
+				session = null;
 			}
 			HibernateUtil.release();
 		}
