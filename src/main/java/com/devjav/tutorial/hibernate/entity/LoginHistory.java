@@ -6,6 +6,7 @@
  */
 package com.devjav.tutorial.hibernate.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -26,8 +27,12 @@ import javax.persistence.TemporalType;
  */
 
 @Entity(name = "login_history")
-public class LoginHistory {
+public class LoginHistory implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3407081920268465656L;
 	private Long id;
 	private User user;
 	private Date loginDate;

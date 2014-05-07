@@ -11,7 +11,8 @@ import java.util.Date;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.devjav.tutorial.hibernate.entity.LoginHistory;
+import com.devjav.tutorial.hibernate.entity.Profile;
+import com.devjav.tutorial.hibernate.entity.Role;
 import com.devjav.tutorial.hibernate.entity.User;
 import com.devjav.tutorial.hibernate.util.HibernateUtil;
 
@@ -34,12 +35,21 @@ public class App {
 			user.setCrtDate(new Date());
 			user.setUsername("thinhpt");
 			user.setPassword("123456");
-			LoginHistory history = new LoginHistory();
-			history.setIp("127.0.0.1");
-			history.setStatus("success");
-			history.setLoginDate(new Date());
-			history.setUser(user);
-			user.getHistories().add(history);
+			Profile profile= new Profile();
+			profile.setCity("Hanoi");
+			profile.setCountry("Vietnam");
+			profile.setMobile("9934934343");
+			profile.setStreet1("dsadsa");
+			profile.setStreet2("dsadsadsad");
+			profile.setUser(user);
+			profile.setZipcode("10000");
+			user.setProfile(profile);
+			Role role = new Role();
+			role.setName("Administrator");
+			role.setDescription("Adminstrator of application");
+			role.setStatus("Active");
+			role.getUsers().add(user);
+			user.getRoles().add(role);
 			txn = session.beginTransaction();
 			session.persist(user);
 			txn.commit();

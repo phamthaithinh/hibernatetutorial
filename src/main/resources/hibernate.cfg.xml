@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
- <session-factory name="tutorial">
+ <session-factory>
   <property name="hibernate.hbm2ddl.auto">update</property>
   <property name="hibernate.connection.password">admin</property>
   <property name="hibernate.connection.username">root</property>
@@ -12,5 +12,7 @@
   <property name="hibernate.show_sql">true</property>
   <mapping class="com.devjav.tutorial.hibernate.entity.User"/>
   <mapping class="com.devjav.tutorial.hibernate.entity.LoginHistory"/>
+  <mapping class="com.devjav.tutorial.hibernate.entity.Profile"/>
+  <mapping class="com.devjav.tutorial.hibernate.entity.Role"/>
  </session-factory>
 </hibernate-configuration>

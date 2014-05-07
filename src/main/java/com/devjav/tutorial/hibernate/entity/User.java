@@ -17,7 +17,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * User persistence entity
@@ -35,7 +39,9 @@ public class User implements Serializable {
 	private String username;
 	private String password;
 	private Date crtDate;
+	private Profile profile;
 	private Set<LoginHistory> histories;
+	private Set<Role> roles;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -64,6 +70,7 @@ public class User implements Serializable {
 	}
 
 	@Column(name = "create_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCrtDate() {
 		return crtDate;
 	}
@@ -72,7 +79,16 @@ public class User implements Serializable {
 		this.crtDate = crtDate;
 	}
 
-	@OneToMany(mappedBy = "user",cascade=CascadeType.ALL,orphanRemoval=true)
+	@OneToOne(optional = false, mappedBy = "user",cascade=CascadeType.ALL)
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<LoginHistory> getHistories() {
 		if (histories == null) {
 			histories = new HashSet<LoginHistory>();
@@ -82,6 +98,18 @@ public class User implements Serializable {
 
 	public void setHistories(Set<LoginHistory> histories) {
 		this.histories = histories;
+	}
+
+	@ManyToMany(mappedBy = "users", cascade = CascadeType.PERSIST)
+	public Set<Role> getRoles() {
+		if (roles == null) {
+			roles = new HashSet<Role>();
+		}
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }
